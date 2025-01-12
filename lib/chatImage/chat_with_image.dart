@@ -146,10 +146,6 @@ class _MainPageState extends State<ChatImage> {
                             answer = '';
                           });
 
-                          debugPrint('Mengirim permintaan ke API...');
-                          debugPrint('Teks: ${textEditingController.text}');
-                          debugPrint('Gambar: ${image!.path}');
-
                           GenerativeModel model = GenerativeModel(
                               model: 'gemini-1.5-flash', apiKey: apiKey);
 
@@ -160,16 +156,12 @@ class _MainPageState extends State<ChatImage> {
                                   File(image!.path).readAsBytesSync())
                             ])
                           ]).then((value) {
-                            debugPrint('Menerima respons dari API:');
-                            debugPrint(value.text.toString());
-
                             setState(() {
                               answer = value.text.toString();
                               isLoading = false;
                               isAIResponding = false;
                             });
                           }).catchError((error) {
-                            debugPrint('Terjadi kesalahan: $error');
                             setState(() {
                               isLoading = false;
                               isAIResponding = false;
